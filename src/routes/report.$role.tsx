@@ -30,6 +30,10 @@ function scoreTone(score: number) {
   return "text-destructive";
 }
 
+function cleanQuestion(q: string) {
+  return q.replace(/^\s*Q\d+\s*[:.\-]\s*/i, "");
+}
+
 function ReportPage() {
   const { role: slug } = Route.useParams();
   const [session, setSession] = useState<StoredSession | null>(null);
@@ -130,7 +134,7 @@ function ReportPage() {
           <article key={i} className="surface-card p-6">
             <div className="flex items-start justify-between gap-4">
               <h3 className="text-base font-semibold text-foreground">
-                <span className="text-muted-foreground">Q{i + 1}.</span> {q.question}
+                <span className="text-muted-foreground">Q{i + 1}.</span> {cleanQuestion(q.question)}
               </h3>
               <span className={`font-display text-2xl font-bold ${scoreTone(q.score)}`}>
                 {Math.round(q.score)}
